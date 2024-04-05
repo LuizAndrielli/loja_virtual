@@ -32,7 +32,10 @@ public abstract class Pessoa implements Serializable {
 	private String telefone;
 
 	
-	/*Mapeado pelo atributo pessoa em Endereco, orphan = remove a classe pai junto, cascade = quando criado, cria em cascata também o endereço, fetch = nao sobrecarregar o banco, apenas trazer o objeto quando chamado o get*/
+	/*Mapeado pelo atributo pessoa em Endereco, orphan = quando uma entidade relacionada (um "filho") não tem mais uma referência para a entidade pai, ela deve ser removida automaticamente do banco de dados
+	 * , cascade = significa que todas as operações de persistência (como salvar, atualizar, excluir) realizadas na entidade pai também serão aplicadas automaticamente à entidade filho.
+     , fetch = determina a estratégia de carregamento dos objetos associados. FetchType.LAZY significa que os objetos relacionados serão carregados sob demanda, apenas quando forem acessados explicitamente, o que pode melhorar o desempenho em casos onde nem sempre os objetos relacionados são necessários
+	 * */
 	@OneToMany(mappedBy = "pessoa",orphanRemoval = true,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	private List<Endereco> enderecos = new ArrayList<>();
 	
